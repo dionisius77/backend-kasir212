@@ -1,27 +1,104 @@
-@base_url = http://localhost:3001
+@base_url = http://localhost:3003
 
-POST {{base_url}}/users HTTP/1.1
+POST {{base_url}}/user HTTP/1.1
 Content-Type: application/json
 
 {}
 
 ###
+
+POST {{base_url}}/stock HTTP/1.1
+Content-Type: application/json
+
+{}
+
+###
+
+POST {{base_url}}/penjualan HTTP/1.1
+Content-Type: application/json
+
+{}
+
+###
+
+POST {{base_url}}/inputPenjualan HTTP/1.1
+Content-Type: application/json
+
+{
+    "kode_penjualan": 722312,
+    "kode_barang": 13471282,
+    "total_per_barang" : 5,
+    "harga_per_barang" : 120000,
+    "total_harga" : 600000,
+    "transaksi_date": "2001-07-02"
+}
+
+###
+
+POST {{base_url}}/deletePenjualan HTTP/1.1
+Content-Type: application/json
+
+{
+    "kode_barang": 13471282
+} 
+
+###
+
+POST {{base_url}}/inputStock HTTP/1.1
+Content-Type: application/json
+
+{
+    "kode_barang": 13471282,
+    "nama_barang": "anti haram",
+    "harga" : 120000,
+    "qty" : 21,
+    "transaksi_date" : "2001-07-02",
+    "expired_date": "2006-12-01"
+}
+
+###
+
+POST {{base_url}}/changeStock HTTP/1.1
+Content-Type: application/json
+
+{
+    "kode_barang": 3,
+    "nama_barang": "fajri babi",
+    "harga" : 100000,
+    "qty" : 21
+}
+
+###
+
+POST {{base_url}}/deleteStock HTTP/1.1
+Content-Type: application/json
+
+{
+    "kode_barang": 1
+} 
+
+###
+
 POST {{base_url}}/inputUser HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "user9",
-    "email": "user9@gmail.com",
-    "password": "password90"
+    "NIK": 207006056,
+    "nama": "Al fajri",
+    "jenis_kelamin" : "l",
+    "agama" : "islam",
+    "jabatan" : "hansip",
+    "password": 12383125516657
 }
 
 ###
-POST {{base_url}}/changePassword HTTP/1.1
+POST {{base_url}}/changeUser HTTP/1.1
 Content-Type: application/json
 
 {
-    "id": 1,
-    "password": "password baru lagi"
+    "NIK": 2,
+    "password": 15072001,
+    "jabatan" : "sasapu"
 }
 
 ###
@@ -29,5 +106,5 @@ POST {{base_url}}/deleteUser HTTP/1.1
 Content-Type: application/json
 
 {
-    "id": 19
+    "NIK": 2
 } 
