@@ -15,54 +15,56 @@ const conn = mysql.createConnection({
   database: 'sql12380265'
 });
 
-conn.connect((error) => {
-  if(err) {
-    res.status(405).json({ "error": err,message});
+conn.connect((err) => {
+  if (err) {
+    res.status(405).json({ "error": err.message });
   } else {
-  console.log('Mysql Connected...');
+    console.log('Mysql Connected...');
   }
 });
 
 app.route('/user').post((req, res) => {
   var sql = 'SELECT * FROM user';
   conn.query(sql, (err, result) => {
-    if(err) {
-      res.status(405).json({ "error": err,message});
+    if (err) {
+      res.status(405).json({ "error": err.message });
     } else {
-    res.status(200).json({ "invocationResult": result });
+      res.status(200).json({ "invocationResult": result });
     }
   });
 });
 
 app.route('/login').post((req, res) => {
   var data = req.body;
-  var sql = `SELECT * FROM "user" WHERE NIK = ${data.NIK} AND password = ${data.password}`;
+  var sql = `SELECT * FROM user WHERE NIK = ${data.NIK} AND password = ${data.password}`;
   conn.query(sql, (err, result) => {
-    if(err) {
-      res.status(405).json({ "error": err,message});
+    if (err) {
+      console.log(result.length);
+      res.status(405).json({ "error": err.message });
     } else {
-    if (result.lenght > 0) {
-      res.status(200).json({
-        login: true,
-        NIK: 207006056,
-        nama: "Al fajri",
-        jabatan: "hansip"
-      });
-    } else {
-      res.status(200).json({
-        login: false
-      });
-    }}
-    });
+      if (result.length > 0) {
+        res.status(200).json({
+          login: true,
+          NIK : NIK,
+          nama : nama,
+          jabatan : jabatan
+        });
+      } else {
+        res.status(200).json({
+          login: false
+        });
+     }
+    }
+  });
 });
 
 app.route('/penjualan').post((req, res) => {
   var sql = 'SELECT * FROM penjualan';
   conn.query(sql, (err, result) => {
-    if(err) {
-      res.status(405).json({ "error": err,message});
+    if (err) {
+      res.status(405).json({ "error": err.message });
     } else {
-    res.status(200).json({ "invocationResult": result });
+      res.status(200).json({ "invocationResult": result });
     }
   });
 });
@@ -70,10 +72,10 @@ app.route('/penjualan').post((req, res) => {
 app.route('/stock').post((req, res) => {
   var sql = 'SELECT * FROM stock';
   conn.query(sql, (err, result) => {
-    if(err) {
-      res.status(405).json({ "error": err,message});
+    if (err) {
+      res.status(405).json({ "error": err.message });
     } else {
-    res.status(200).json({ "invocationResult": result });
+      res.status(200).json({ "invocationResult": result });
     }
   });
 });
@@ -100,13 +102,32 @@ app.route('/inputPenjualan').post((req, res) => {
   )
   `;
   conn.query(sql, (err, result) => {
-    if(err) {
-      res.status(405).json({ "error": err,message});
+    if (err) {
+      res.status(405).json({ "error": err.message });
     } else {
-    res.status(201).json({ "invocationResult": result });
+      res.status(201).json({ "invocationResult": result });
     }
   });
 });
+
+app.route('/changePenjualan').post((req, res) => {
+  let data = req.body;
+  let sql = `
+  UPDATE penjualan
+  SET total_per_barang=${data.total_per_barang},
+  harga_per_barang=${data.harga_per_barang},
+  total_harga=${data.total_harga},
+  qty =${data.qty}
+  WHERE kode_barang=${data.kode_barang}
+  `;
+  conn.query(sql, (err, result) => {
+    if (err) {
+      res.status(405).json({ "error": err.message });
+    } else {
+      res.status(201).json({ "invocationResult": result });
+    }
+  });
+})
 
 app.route('/deletePenjualan').post((req, res) => {
   let data = req.body;
@@ -115,10 +136,10 @@ app.route('/deletePenjualan').post((req, res) => {
   WHERE kode_barang=${data.kode_barang}
   `;
   conn.query(sql, (err, result) => {
-    if(err) {
-      res.status(405).json({ "error": err,message});
+    if (err) {
+      res.status(405).json({ "error": err.message });
     } else {
-    res.status(201).json({ "udah bisa itu asu": result });
+      res.status(201).json({ "udah bisa itu asu": result });
     }
   });
 })
@@ -145,10 +166,10 @@ app.route('/inputStock').post((req, res) => {
   )
   `;
   conn.query(sql, (err, result) => {
-    if(err) {
-      res.status(405).json({ "error": err,message});
+    if (err) {
+      res.status(405).json({ "error": err.message });
     } else {
-    res.status(201).json({ "invocationResult": result });
+      res.status(201).json({ "invocationResult": result });
     }
   });
 });
@@ -175,10 +196,10 @@ app.route('/inputUser').post((req, res) => {
   )
   `;
   conn.query(sql, (err, result) => {
-    if(err) {
-      res.status(405).json({ "error": err,message});
+    if (err) {
+      res.status(405).json({ "error": err.message });
     } else {
-    res.status(201).json({ "invocationResult": result });
+      res.status(201).json({ "invocationResult": result });
     }
   });
 });
@@ -193,10 +214,10 @@ app.route('/changeStock').post((req, res) => {
   WHERE kode_barang=${data.kode_barang}
   `;
   conn.query(sql, (err, result) => {
-    if(err) {
-      res.status(405).json({ "error": err,message});
+    if (err) {
+      res.status(405).json({ "error": err.message });
     } else {
-    res.status(201).json({ "invocationResult": result });
+      res.status(201).json({ "invocationResult": result });
     }
   });
 })
@@ -210,10 +231,10 @@ app.route('/changeUser').post((req, res) => {
   WHERE NIK=${data.NIK}
   `;
   conn.query(sql, (err, result) => {
-    if(err) {
-      res.status(405).json({ "error": err,message});
+    if (err) {
+      res.status(405).json({ "error": err.message });
     } else {
-    res.status(201).json({ "invocationResult": result });
+      res.status(201).json({ "invocationResult": result });
     }
   });
 })
@@ -225,10 +246,11 @@ app.route('/deleteUser').post((req, res) => {
   WHERE NIK=${data.NIK}
   `;
   conn.query(sql, (err, result) => {
-    if(err) {
-      res.status(405).json({ "error": err,message});
-    } else {;
-    res.status(201).json({ "invocationResult": result });
+    if (err) {
+      res.status(405).json({ "error": err.message });
+    } else {
+      ;
+      res.status(201).json({ "invocationResult": result });
     }
   });
 })
@@ -240,10 +262,10 @@ app.route('/deleteStock').post((req, res) => {
   WHERE kode_barang=${data.kode_barang}
   `;
   conn.query(sql, (err, result) => {
-    if(err) {
-      res.status(405).json({ "error": err,message});
+    if (err) {
+      res.status(405).json({ "error": err.message });
     } else {
-    res.status(201).json({ "invocationResult": result });
+      res.status(201).json({ "invocationResult": result });
     }
   });
 })
