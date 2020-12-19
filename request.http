@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
     "NIK": 207006056,
-    "password": 2147483647
+    "password": 12383125
 }
 
 ###
@@ -111,7 +111,7 @@ Content-Type: application/json
     "jenis_kelamin" : "l",
     "agama" : "islam",
     "jabatan" : "hansip",
-    "password": 12383125516657
+    "password": 12383125
 }
 
 ###

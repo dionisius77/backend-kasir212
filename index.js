@@ -9,15 +9,15 @@ app.use(cors());
 app.disable('x-powered-by');
 
 const conn = mysql.createConnection({
-  host: 'sql12.freemysqlhosting.net',
-  user: 'sql12380265',
-  password: 'P4Dw38irKz',
-  database: 'sql12380265'
+  host: 'remotemysql.com',
+  user: '73LOW96awC',
+  password: 'Mjtb9KuSYI',
+  database: '73LOW96awC'
 });
 
 conn.connect((err) => {
   if (err) {
-    res.status(405).json({ "error": err.message });
+    console.log(err.message);
   } else {
     console.log('Mysql Connected...');
   }
@@ -45,15 +45,15 @@ app.route('/login').post((req, res) => {
       if (result.length > 0) {
         res.status(200).json({
           login: true,
-          NIK : NIK,
-          nama : nama,
-          jabatan : jabatan
+          NIK: result[0].NIK,
+          nama: result[0].nama,
+          jabatan: result[0].jabatan
         });
       } else {
         res.status(200).json({
           login: false
         });
-     }
+      }
     }
   });
 });
