@@ -90,14 +90,16 @@ app.route('/inputPenjualan').post((req, res) => {
     total_per_barang,
     harga_per_barang,
     total_harga,
+    qty,
     transaksi_date
   )
   VALUES(
-      '${data.kode_penjualan}',
-      '${data.kode_barang}',
-      '${data.total_per_barang}',
-      '${data.harga_per_barang}',
-      '${data.total_harga}',
+      ${data.kode_penjualan},
+      ${data.kode_barang},
+      ${data.total_per_barang},
+      ${data.harga_per_barang},
+      ${data.total_harga},
+      ${data.qty},
       '${data.transaksi_date}'
   )
   `;

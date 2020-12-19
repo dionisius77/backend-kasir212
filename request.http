@@ -13,6 +13,12 @@ Content-Type: application/json
 {}
 
 ###
+POST {{base_url}}/penjualan HTTP/1.1
+Content-Type: application/json
+
+{}
+
+###
 
 POST {{base_url}}/login HTTP/1.1
 Content-Type: application/json
@@ -24,23 +30,17 @@ Content-Type: application/json
 
 ###
 
-POST {{base_url}}/penjualan HTTP/1.1
-Content-Type: application/json
-
-{}
-
-###
-
 POST {{base_url}}/inputPenjualan HTTP/1.1
 Content-Type: application/json
 
 { 
     "kode_penjualan": 722312,
     "kode_barang": 13471282,
-    "total_per_barang" : 5,
-    "harga_per_barang" : 120000,
-    "total_harga" : 600000,
-    "transaksi_date": "2001-07-02"
+    "total_per_barang" : 12,
+    "harga_per_barang" : 25000,
+    "total_harga" : 300000,
+    "qty" : 21,
+    "transaksi_date": "2020-05-04 07-15-24"
 }
 
 ###
@@ -72,11 +72,11 @@ Content-Type: application/json
 
 {
     "kode_barang": 13471282,
-    "nama_barang": "anti haram",
-    "harga" : 120000,
+    "nama_barang": "pork yang halal",
+    "harga" : 56000,
     "qty" : 21,
-    "transaksi_date" : "2001-07-02",
-    "expired_date": "2006-12-01"
+    "transaksi_date" : "2020-07-05 02:15:59",
+    "expired_date": "2022-07-05 02:15:59"
 }
 
 ###
@@ -97,7 +97,7 @@ POST {{base_url}}/deleteStock HTTP/1.1
 Content-Type: application/json
 
 {
-    "kode_barang": 1
+    "kode_barang": 13471282
 } 
 
 ###
