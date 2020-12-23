@@ -69,6 +69,17 @@ app.route('/penjualan').post((req, res) => {
   });
 });
 
+app.route('/accounting').post((req, res) => {
+  var sql = 'SELECT * FROM accounting';
+  conn.query(sql, (err, result) => {
+    if (err) {
+      res.status(405).json({ "error": err.message });
+    } else {
+      res.status(200).json({ "invocationResult": result });
+    }
+  });
+});
+
 app.route('/stock').post((req, res) => {
   var sql = 'SELECT * FROM stock';
   conn.query(sql, (err, result) => {
@@ -79,6 +90,52 @@ app.route('/stock').post((req, res) => {
     }
   });
 });
+
+app.route('/inputAccounting').post((req, res) => {
+  var data = req.body;
+  var sql = `
+  INSERT INTO
+  accounting(
+      kode_transaki,
+      debit,
+      credit,
+      deskripsi,
+      transaksi_date
+  )
+  VALUES(
+      ${data.kode_transaki},
+      ${data.debit},
+      ${data.credit},
+      '${data.deskripsi}',
+      '${data.transaksi_date}'
+  )
+  `;
+  conn.query(sql, (err, result) => {
+    if (err) {
+      res.status(405).json({ "error": err.message });
+    } else {
+      res.status(201).json({ "invocationResult": result });
+    }
+  });
+});
+
+app.route('/changeAccounting').post((req, res) => {
+  let data = req.body;
+  let sql = `
+  UPDATE accounting
+  SET debit=${data.debit},
+  credit=${data.credit},
+  deskripsi='${data.deskripsi}'
+  WHERE kode_transaki=${data.kode_transaki}
+  `;
+  conn.query(sql, (err, result) => {
+    if (err) {
+      res.status(405).json({ "error": err.message });
+    } else {
+      res.status(201).json({ "invocationResult": result });
+    }
+  });
+})
 
 app.route('/inputPenjualan').post((req, res) => {
   var data = req.body;
@@ -141,7 +198,7 @@ app.route('/deletePenjualan').post((req, res) => {
     if (err) {
       res.status(405).json({ "error": err.message });
     } else {
-      res.status(201).json({ "udah bisa itu asu": result });
+      res.status(201).json({ "opo cok? lambemu njepat": result });
     }
   });
 })
